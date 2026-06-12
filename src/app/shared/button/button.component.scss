@@ -1,0 +1,29 @@
+button{
+  width: 100%;
+  border-radius: 4px;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  font-weight: bold;
+  letter-spacing: 8px;
+}
+
+.btn-primary {
+  background:linear-gradient(to right,theme('colors.red_one'),theme('colors.brown_one'));
+  color: white;
+
+   &:hover {
+    background:linear-gradient(to right,theme('colors.orange_two'),theme('colors.red_two'));
+  }
+}
+
+.btn-secondary {
+  background-color: white;
+  border: 2px solid theme('colors.brown_one');
+  color: theme('colors.brown_one');
+
+   &:hover {
+    background-color:theme('colors.orange_one');
+    border-color: theme('colors.brown_two');
+    color: theme('colors.brown_two');
+  }
+}
