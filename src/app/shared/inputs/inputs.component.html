@@ -1,0 +1,14 @@
+<div class="input-container" [ngClass]="styles">
+  <label class="input-label" *ngIf="label" [for]="id"
+    >{{ label }} <span *ngIf="required">*</span>
+  </label>
+  <input
+    class="input-field"
+    [id]="id"
+    [type]="type"
+    [placeholder]="placeholder"
+    [ngClass]="styles"
+  />
+
+  <!-- <small class="error" *ngIf="control.invalid && control.touched"> Campo obrigatório </small> -->
+</div>

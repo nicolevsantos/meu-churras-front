@@ -1,0 +1,56 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.input-container.default .input-label {
+  color: #6b7280;
+}
+
+.input-container.secondary .input-label {
+  color: theme('colors.background_two');
+}
+
+.input-field {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  outline: none;
+}
+
+.input-field.default {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.input-field.default:hover,
+.input-field.default:focus {
+  border-color: theme('colors.orange_one');
+}
+
+.input-field.secondary {
+  border: 1px solid theme('colors.brown_two');
+  background: theme('colors.brown_two/49%');
+  color: theme('colors.background_two');
+}
+
+.input-field.secondary:hover,
+.input-field.secondary:focus {
+  border-color: theme('colors.background_two/60%');
+}
+
+.input-field.secondary::placeholder{
+color:theme('colors.background_two/80%')
+}
+
+label:has(input.field.secondary){
+color:theme('colors.background_two/80%')
+}
+
