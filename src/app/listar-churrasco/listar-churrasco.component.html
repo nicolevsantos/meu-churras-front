@@ -1,0 +1,38 @@
+<div class="w-[50%] justify-self-center grid gap-8">
+  <header>
+    <h1 class="font-medium text-4xl">Olá, {{ nomeUsuario }}</h1>
+    <span class="text-2xl">Seus churrascos</span>
+  </header>
+
+  <section class="border-t-2 border-b-2 border-bege_one w-full h-[80%] grid gap-7 py-7 overflow-auto">
+    <div
+      *ngFor="let churrasco of listaChurrascos"
+      class="cardChurrasco grid grid-cols-3 hover:bg-background_one border-red_one border-[3px] rounded-xl"
+    >
+      <!-- imagem card  -->
+      <div class="col-span-1 flex justify-center p-5 relative">
+        <img class="h-44" src="./assets/churrasqueira-acesa.svg" alt="Churrasqueia Acesa" />
+        <div class=" h-[150px] absolute right-0 top-7 bottom-3 w-[3px] bg-[#c0392b]"></div>
+      </div>
+
+      <!-- informações card  -->
+      <div class="col-span-2 grid px-5">
+        <div class="flex justify-between justify-items-center items-center">
+          <h2 class="text-2xl text-red_one font-semibold tracking-[4px]">{{ churrasco.nome }}</h2>
+          <button class="text-xl text-red_two font-semibold">X</button>
+        </div>
+
+        <ul class="list-disc text-2xl text-brown_two pl-5 mt-2">
+          <li>{{ churrasco.qtd_pessoas }} pessoas</li>
+          <li>{{ churrasco.data }}</li>
+        </ul>
+
+        <button
+          class="underline text-red_two cursor-pointer font-semibold text-lg justify-self-end"
+        >
+          Editar
+        </button>
+      </div>
+    </div>
+  </section>
+</div>

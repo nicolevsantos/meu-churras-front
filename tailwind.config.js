@@ -15,7 +15,6 @@ module.exports = {
         bege_two:'#9A8686',
         background_one:'#F8F5F0',
         background_two:'#F4E9D8',
-
 }
     },
   },
