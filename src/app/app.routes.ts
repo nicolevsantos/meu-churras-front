@@ -12,12 +12,28 @@ export const routes: Routes = [
         loadComponent: () => import('./listar-churrasco/listar-churrasco.component')
           .then(m => m.ListarChurrascoComponent)
       },
+
       {
         path: '',
         redirectTo: 'churrascos',
         pathMatch: 'full'
       }
 
+    ]
+  },
+  {
+    path: 'externo',
+    children: [
+      {
+        path: 'login',
+        loadComponent: () => import('./login/login.component')
+          .then(m => m.LoginComponent)
+      },
+        {
+        path: 'cadastro',
+        loadComponent: () => import('./cadastro/cadastro.component')
+          .then(m => m.CadastroComponent)
+      },
     ]
   }
 
