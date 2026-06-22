@@ -8,14 +8,32 @@ export const routes: Routes = [
     component: LayoutComponent,  // layout com o header fixo
     children: [
       {
-        path: 'churrascos',
+        path: 'listar-churrasco',
         loadComponent: () => import('./listar-churrasco/listar-churrasco.component')
           .then(m => m.ListarChurrascoComponent)
       },
 
       {
+        path: 'churrasco',        // criação
+        loadComponent: () => import('./churrasco/churrasco.component')
+          .then(m => m.ChurrascoComponent)
+      },
+      {
+        path: 'churrasco/:id',    // edição
+        loadComponent: () => import('./churrasco/churrasco.component')
+          .then(m => m.ChurrascoComponent)
+      },
+
+      {
+        path: 'comprovante/:id',
+        loadComponent: () => import('./comprovante/comprovante.component')
+          .then(m => m.ComprovanteComponent)
+      },
+
+
+      {
         path: '',
-        redirectTo: 'churrascos',
+        redirectTo: 'listar-churrasco',
         pathMatch: 'full'
       }
 
@@ -29,7 +47,7 @@ export const routes: Routes = [
         loadComponent: () => import('./login/login.component')
           .then(m => m.LoginComponent)
       },
-        {
+      {
         path: 'cadastro',
         loadComponent: () => import('./cadastro/cadastro.component')
           .then(m => m.CadastroComponent)

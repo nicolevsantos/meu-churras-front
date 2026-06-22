@@ -1,0 +1,103 @@
+<div class="h-fit justify-self-center bg-background_one w-fit px-8">
+  <header>
+    <img src="../../assets/logo_simples_nota.svg" alt="" />
+  </header>
+
+  <section>
+    <h1>Seu churrasco está pronto !</h1>
+    <p>Veja abaixo a lista completa do que você vai precisar</p>
+  </section>
+
+  <!-- informações basicas  -->
+  <section class="grid grid-cols-2 grid-rows-3">
+    <p>
+      PESSOAS: <span>{{ churrascoDetalhe.pessoas }}</span>
+    </p>
+    <p>
+      Duração: <span>{{ churrascoDetalhe.duracao }}</span>
+    </p>
+    <p>
+      Data: <span>{{ churrascoDetalhe.data }}</span>
+    </p>
+    <p>
+      PREVISÃO: <span>{{ churrascoDetalhe.previsaoTempo }}</span>
+    </p>
+
+    <p>
+      TEMPERATURA :<span>{{ churrascoDetalhe.temperatura }}</span>
+    </p>
+  </section>
+
+  <!-- dicas  -->
+  <section class=" ">
+    <h2>Dicas</h2>
+    <ul>
+      <li *ngFor="let dica of churrascoDetalhe.dicas">• {{ dica }}</li>
+    </ul>
+  </section>
+
+  <!-- itens -->
+  <section>
+    <table>
+      <thead>
+        <tr>
+          <th>ITEM</th>
+          <th>QTD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- carnes -->
+        <tr>
+          <td colspan="2"><strong>CARNES </strong></td>
+        </tr>
+        <tr class="item-row" *ngFor="let item of churrascoDetalhe.itens.carnes">
+          <td class="flex items-baseline gap-1 w-full">
+            {{ item.nome }}
+            <span class="flex-1 border-b border-dotted border-gray-400 mx-2"></span>
+          </td>
+          <td>{{ item.quantidade }} {{ item.unidade }}</td>
+        </tr>
+
+        <!-- acompanhamentos -->
+        <tr>
+          <td colspan="2"><strong>ACOMPANHAMENTOS </strong></td>
+        </tr>
+        <tr class="item-row" *ngFor="let item of churrascoDetalhe.itens.acompanhamentos">
+          <td class="flex items-baseline gap-1 w-full">
+            {{ item.nome }}
+            <span class="flex-1 border-b border-dotted border-gray-400 mx-2"></span>
+          </td>
+          <td>{{ item.quantidade }} {{ item.unidade }}</td>
+        </tr>
+
+        <!-- bebidas -->
+        <tr>
+          <td colspan="2"><strong>BEBIDAS </strong></td>
+        </tr>
+        <tr class="item-row" *ngFor="let item of churrascoDetalhe.itens.bebidas">
+          <td class="flex items-baseline gap-1 w-full">
+            {{ item.nome }}
+            <span class="flex-1 border-b border-dotted border-gray-400 mx-2"></span>
+          </td>
+          <td>{{ item.quantidade }} {{ item.unidade }}</td>
+        </tr>
+
+        <!-- extras -->
+        <tr>
+          <td colspan="2"><strong>EXTRAS </strong></td>
+        </tr>
+        <tr class="item-row" *ngFor="let item of churrascoDetalhe.itens.extras">
+          <td class="flex items-baseline gap-1 w-full">
+            {{ item.nome }}
+            <span class="flex-1 border-b border-dotted border-gray-400 mx-2"></span>
+          </td>
+          <td>{{ item.quantidade }} {{ item.unidade }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    <img class="absolute bottom-[177px] right-[350px]" src="../../assets/borda-comprovante.svg" alt="">
+  </footer>
+</div>

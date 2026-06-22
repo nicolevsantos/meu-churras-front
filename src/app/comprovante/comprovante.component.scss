@@ -1,0 +1,13 @@
+.item-row td:first-child {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  width: 100%;
+
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 2px dotted #aaa;
+    margin: 0 8px;
+  }
+}
