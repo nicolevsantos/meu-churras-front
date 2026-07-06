@@ -11,3 +11,40 @@
     margin: 0 8px;
   }
 }
+
+
+.linha-tracejada {
+  height: 1px;
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    to right,
+    #9ca3af 0,
+    #9ca3af 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.informacoes {
+  p{
+    font-weight: 600;
+    margin-bottom: 4px;
+
+    span {
+      font-weight: normal;
+      color: #111827;
+    }
+  }
+}
+
+.resumo{
+  p{
+    font-weight: 600;
+    margin-bottom: 4px;
+
+    span {
+      font-weight: normal;
+      color: #111827;
+    }
+  }
+}

@@ -1,12 +1,12 @@
-<div class="w-[50%] justify-self-center grid gap-8">
+<div class="w-[50%] justify-self-center flex flex-col h-screen overflow-hidden  ">
   <header>
-    <h1 class="font-medium text-4xl">Olá, {{ nomeUsuario }}</h1>
-    <span class="text-2xl">Seus churrascos</span>
+    <h1 class="font-medium text-3xl">Olá, {{ nomeUsuario }}</h1>
+    <span class="text-xl">Seus churrascos</span>
   </header>
 
   <section
     *ngIf="listaChurrascos.length > 0"
-    class="border-t-2 border-b-2 border-bege_one w-full h-[80%] grid gap-7 py-7 overflow-auto"
+    class="border-t-2 border-b-2 border-bege_one w-full h-[65%] grid gap-7 py-7 overflow-auto"
   >
     <div
 
@@ -15,14 +15,14 @@
     >
       <!-- imagem card  -->
       <div    (click)="verComprovante(churrasco.id)" class="cursor-pointer col-span-1 flex justify-center p-5 relative">
-        <img class="h-44" src="./assets/churrasqueira-acesa.svg" alt="Churrasqueia Acesa" />
-        <div class="h-[150px] absolute right-0 top-7 bottom-3 w-[3px] bg-[#c0392b]"></div>
+        <img class="h-32" src="./assets/churrasqueira-acesa.svg" alt="Churrasqueia Acesa" />
+        <div class="h-[150px] absolute right-0 top-5 bottom-3 w-[3px] bg-[#c0392b]"></div>
       </div>
 
       <!-- informações card  -->
       <div class="col-span-2 grid px-5">
         <div class="flex justify-between justify-items-center items-center">
-          <h2 class="text-2xl text-red_one font-semibold tracking-[4px]">{{ churrasco?.nome }}</h2>
+          <h2 class="text-xl text-red_one font-semibold tracking-[4px]">{{ churrasco?.nome }}</h2>
           <button
             (click)="removerChurrasco(churrasco.id)"
             class="text-xl text-red_two font-semibold"
@@ -31,7 +31,7 @@
           </button>
         </div>
 
-        <ul class="list-disc text-2xl text-brown_two pl-5 mt-2">
+        <ul class="list-disc text-xl text-brown_two pl-5 mt-2">
           <li>{{ churrasco?.qtd_pessoas }} pessoas</li>
           <li>{{ churrasco?.data }}</li>
         </ul>
@@ -57,5 +57,5 @@
       >Planeje e descubra a quantidade ideal de cada item !</span
     >
   </section>
-  <app-button class="" label="+ NOVO CHURRASCO" variant="primary" (click)="criarChurrasco()"></app-button>
+  <app-button class="mt-6" label="+ NOVO CHURRASCO" variant="primary" (click)="criarChurrasco()"></app-button>
 </div>

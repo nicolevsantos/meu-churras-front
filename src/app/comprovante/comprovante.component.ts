@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 export interface ItemChurrasco {
   nome: string;
@@ -26,13 +27,16 @@ export interface ChurrascoDetalhe {
 
 @Component({
   selector: 'app-comprovante',
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   standalone: true,
   templateUrl: './comprovante.component.html',
   styleUrl: './comprovante.component.scss',
 })
 
 export class ComprovanteComponent {
+
+
+ private router = inject(Router);
 
   churrascoDetalhe: ChurrascoDetalhe = {
     id: 1,
@@ -67,5 +71,25 @@ export class ComprovanteComponent {
       ],
     }
   };
+
+  get totalBebidas(): number {
+    return this.churrascoDetalhe.itens.bebidas
+      .reduce((soma, item) => soma + item.quantidade, 0);
+  }
+
+  get totalAcompanhamentos(): number {
+    return this.churrascoDetalhe.itens.acompanhamentos.length;
+  }
+
+  get totalCarne(): string {
+    const total = this.churrascoDetalhe.itens.carnes
+      .reduce((soma, item) => soma + item.quantidade, 0);
+
+    return total.toFixed(2).replace('.', ',');
+  }
+
+   voltar(): void {
+    this.router.navigate(['/']);
+  }
 
 }

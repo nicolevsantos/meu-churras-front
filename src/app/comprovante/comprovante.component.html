@@ -1,103 +1,143 @@
-<div class="h-fit justify-self-center bg-background_one w-fit px-8">
-  <header>
-    <img src="../../assets/logo_simples_nota.svg" alt="" />
+<button
+  (click)="voltar()"
+  class=" pl-10 flex underline items-center gap-1 text-base text-brown_one font-bold hover:text-red_two"
+>
+  Voltar
+</button>
+<div class="h-fit justify-self-center bg-background_one w-fit mb-16">
+
+  <header class="grid pt-4 pb-1 px-8 w-full">
+    <img class="flex justify-self-center" src="../../assets/logo_simples_nota.svg" alt="" />
+    <div class="linha-tracejada my-2 px-4"></div>
   </header>
 
-  <section>
-    <h1>Seu churrasco está pronto !</h1>
+  <section class="grid justify-items-center px-8 pt-0">
+    <h1 class="uppercase font-semibold text-sm">Seu churrasco está pronto !</h1>
     <p>Veja abaixo a lista completa do que você vai precisar</p>
+
+    <div class="linha-tracejada my-2"></div>
   </section>
 
-  <!-- informações basicas  -->
-  <section class="grid grid-cols-2 grid-rows-3">
-    <p>
-      PESSOAS: <span>{{ churrascoDetalhe.pessoas }}</span>
-    </p>
-    <p>
-      Duração: <span>{{ churrascoDetalhe.duracao }}</span>
-    </p>
-    <p>
-      Data: <span>{{ churrascoDetalhe.data }}</span>
-    </p>
-    <p>
-      PREVISÃO: <span>{{ churrascoDetalhe.previsaoTempo }}</span>
-    </p>
+  <div class="px-8">
+    <section class="informacoes grid grid-cols-2 grid-rows-3">
+      <p>
+        PESSOAS: <span>{{ churrascoDetalhe.pessoas }}</span>
+      </p>
+      <p>
+        Duração: <span>{{ churrascoDetalhe.duracao }}</span>
+      </p>
+      <p>
+        Data: <span>{{ churrascoDetalhe.data }}</span>
+      </p>
+      <p>
+        PREVISÃO: <span>{{ churrascoDetalhe.previsaoTempo }}</span>
+      </p>
 
-    <p>
-      TEMPERATURA :<span>{{ churrascoDetalhe.temperatura }}</span>
-    </p>
-  </section>
+      <p>
+        TEMPERATURA :<span>{{ churrascoDetalhe.temperatura }}</span>
+      </p>
+    </section>
 
-  <!-- dicas  -->
-  <section class=" ">
-    <h2>Dicas</h2>
-    <ul>
-      <li *ngFor="let dica of churrascoDetalhe.dicas">• {{ dica }}</li>
-    </ul>
-  </section>
+    <div class="linha-tracejada my-2"></div>
 
-  <!-- itens -->
-  <section>
-    <table>
-      <thead>
-        <tr>
-          <th>ITEM</th>
-          <th>QTD</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- carnes -->
-        <tr>
-          <td colspan="2"><strong>CARNES </strong></td>
-        </tr>
-        <tr class="item-row" *ngFor="let item of churrascoDetalhe.itens.carnes">
-          <td class="flex items-baseline gap-1 w-full">
-            {{ item.nome }}
-            <span class="flex-1 border-b border-dotted border-gray-400 mx-2"></span>
-          </td>
-          <td>{{ item.quantidade }} {{ item.unidade }}</td>
-        </tr>
+    <!-- dicas  -->
+    <section class=" ">
+      <h2 class="font-bold">Dicas</h2>
+      <ul>
+        <li *ngFor="let dica of churrascoDetalhe.dicas">• {{ dica }}</li>
+      </ul>
+      <div class="linha-tracejada my-2"></div>
+    </section>
 
-        <!-- acompanhamentos -->
-        <tr>
-          <td colspan="2"><strong>ACOMPANHAMENTOS </strong></td>
-        </tr>
-        <tr class="item-row" *ngFor="let item of churrascoDetalhe.itens.acompanhamentos">
-          <td class="flex items-baseline gap-1 w-full">
-            {{ item.nome }}
-            <span class="flex-1 border-b border-dotted border-gray-400 mx-2"></span>
-          </td>
-          <td>{{ item.quantidade }} {{ item.unidade }}</td>
-        </tr>
+    <!-- itens -->
+    <!-- itens -->
+    <section class="w-full">
+      <!-- cabeçalho -->
+      <div class="flex justify-between text-xs font-semibold text-brown_two uppercase mb-2">
+        <span>Item</span>
+        <span>Qtd</span>
+      </div>
 
-        <!-- bebidas -->
-        <tr>
-          <td colspan="2"><strong>BEBIDAS </strong></td>
-        </tr>
-        <tr class="item-row" *ngFor="let item of churrascoDetalhe.itens.bebidas">
-          <td class="flex items-baseline gap-1 w-full">
-            {{ item.nome }}
-            <span class="flex-1 border-b border-dotted border-gray-400 mx-2"></span>
-          </td>
-          <td>{{ item.quantidade }} {{ item.unidade }}</td>
-        </tr>
+      <!-- carnes -->
+      <div class="mb-4">
+        <h3 class="font-semibold uppercase flex items-center gap-1 mb-2">Carnes</h3>
+        <div class="flex items-baseline gap-1" *ngFor="let item of churrascoDetalhe.itens.carnes">
+          <span>{{ item.nome }}</span>
+          <span class="flex-1 border-b border-dotted border-gray-400 mx-1"></span>
+          <span class="whitespace-nowrap">{{ item.quantidade }} {{ item.unidade }}</span>
+        </div>
+      </div>
 
-        <!-- extras -->
-        <tr>
-          <td colspan="2"><strong>EXTRAS </strong></td>
-        </tr>
-        <tr class="item-row" *ngFor="let item of churrascoDetalhe.itens.extras">
-          <td class="flex items-baseline gap-1 w-full">
-            {{ item.nome }}
-            <span class="flex-1 border-b border-dotted border-gray-400 mx-2"></span>
-          </td>
-          <td>{{ item.quantidade }} {{ item.unidade }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+      <div class="linha-tracejada my-3"></div>
 
-  <footer>
-    <img class="absolute bottom-[177px] right-[350px]" src="../../assets/borda-comprovante.svg" alt="">
+      <!-- acompanhamentos -->
+      <div class="mb-4">
+        <h3 class="font-semibold uppercase flex items-center gap-1 mb-2">Acompanhamentos</h3>
+        <div
+          class="flex items-baseline gap-1"
+          *ngFor="let item of churrascoDetalhe.itens.acompanhamentos"
+        >
+          <span>{{ item.nome }}</span>
+          <span class="flex-1 border-b border-dotted border-gray-400 mx-1"></span>
+          <span class="whitespace-nowrap">{{ item.quantidade }} {{ item.unidade }}</span>
+        </div>
+      </div>
+
+      <div class="linha-tracejada my-3"></div>
+
+      <!-- bebidas -->
+      <div class="mb-4">
+        <h3 class="font-semibold uppercase flex items-center gap-1 mb-2">Bebidas</h3>
+        <div class="flex items-baseline gap-1" *ngFor="let item of churrascoDetalhe.itens.bebidas">
+          <span>{{ item.nome }}</span>
+          <span class="flex-1 border-b border-dotted border-gray-400 mx-1"></span>
+          <span class="whitespace-nowrap">{{ item.quantidade }} {{ item.unidade }}</span>
+        </div>
+      </div>
+
+      <div class="linha-tracejada my-3"></div>
+
+      <!-- extras -->
+      <div>
+        <h3 class="font-semibold uppercase flex items-center gap-1 mb-2">Extras</h3>
+        <div class="flex items-baseline gap-1" *ngFor="let item of churrascoDetalhe.itens.extras">
+          <span>{{ item.nome }}</span>
+          <span class="flex-1 border-b border-dotted border-gray-400 mx-1"></span>
+          <span class="whitespace-nowrap">{{ item.quantidade }} {{ item.unidade }}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="resumo mb-4 mt-4">
+      <div class="linha-tracejada mb-3"></div>
+
+      <p class="text-center font-semibold text-sm mb-2">* * * RESUMO * * *</p>
+
+      <div class="text-xs">
+        <p>
+          TOTAL DE BEBIDAS: <span>{{ totalBebidas }} litros </span>
+        </p>
+        <p>
+          ACOMPANHAMENTOS: <span> {{ totalAcompanhamentos }} itens</span>
+        </p>
+        <p>
+          TOTAL DE CARNE: <span> {{ totalCarne }} kg</span>
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <footer class="relative translate-y-3 mt-5">
+    <div class="text-center mb-3 px-8">
+      <div class="linha-tracejada mb-3"></div>
+      <p class="font-bold uppercase text-sm">Agora é só aproveitar!</p>
+      <p class="font-bold uppercase text-sm">Bom churrasco !</p>
+    </div>
+
+    <div class="flex justify-center">
+      <img class="h-10" src="../../assets/codigo-barras.svg" alt="" />
+    </div>
+    <img src="../../assets/borda-comprovante.svg" alt="" class="block w-full" />
   </footer>
 </div>
+
