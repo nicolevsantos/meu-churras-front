@@ -4,14 +4,32 @@
   >
     <img class="w-60 flex justify-self-center" src="../../assets/logo.svg" alt="" />
 
-    <div class="grid gap-5">
-      <app-inputs label="Email" placeholder="Email" class="" styles="secondary"></app-inputs>
-      <app-inputs label="Senha" placeholder="Senha" class="" styles="secondary"></app-inputs>
-    </div>
+    <form [formGroup]="form" class="grid gap-5">
+      <app-inputs
+        label="Email"
+        placeholder="Email"
+        id="email"
+        [control]="getControl('email')"
+        [required]="true"
+        [errorMessages]="{ email: 'Digite um e-mail válido' }"
+        styles="secondary"
+      ></app-inputs>
+
+      <app-inputs
+        label="Senha"
+        placeholder="Senha"
+        id="senha"
+        type="password"
+        [control]="getControl('password')"
+        [required]="true"
+        [errorMessages]="{ minlength: 'A senha precisa ter ao menos 6 caracteres' }"
+        styles="secondary"
+      ></app-inputs>
+    </form>
 
     <div class="grid gap-3 self-end">
-      <app-button class="" label="Entrar" variant="primary"></app-button>
-      <app-button   label="Cadastrar" variant="secondary"></app-button>
+      <app-button label="Entrar" variant="primary" (click)="entrar()"></app-button>
+      <app-button label="Cadastrar" variant="secondary" (click)="cadastrar()"></app-button>
     </div>
   </div>
 

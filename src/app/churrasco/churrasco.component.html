@@ -1,1 +1,139 @@
-<h1>Crie seu churrasco</h1>
+<button
+  (click)="voltar()"
+  class="pl-10 flex underline items-center gap-1 text-base text-brown_one font-bold hover:text-red_two"
+>
+  Voltar
+</button>
+
+<div class="grid justify-items-center justify-center px-5">
+  <form class="churrasco-form" [formGroup]="form" (ngSubmit)="criarChurrasco()">
+    <h2 class="section-title">Informações Básicas</h2>
+
+    <app-inputs
+      id="name"
+      type="text"
+      placeholder="Nome do churrasco"
+      [control]="getControl('name')"
+      [required]="true"
+    >
+    </app-inputs>
+
+    <div class="row">
+      <app-inputs label="Data" id="date" type="date" [control]="getControl('date')"> </app-inputs>
+
+      <app-inputs label="Horário" id="time" type="time" [control]="getControl('time')">
+      </app-inputs>
+    </div>
+
+    <app-inputs label="Cidade" id="city" placeholder="Cidade" [control]="getControl('city')">
+    </app-inputs>
+
+    <div class="row">
+      <app-inputs label="Adultos" id="adults" type="number" [control]="getControl('adults')">
+      </app-inputs>
+
+      <app-inputs label="Crianças" id="kids" type="number" [control]="getControl('kids')">
+      </app-inputs>
+    </div>
+
+    <div class="row">
+      <label class="checkbox-item">
+        <input type="checkbox" formControlName="isVegan" />
+        Terá veganos
+      </label>
+
+      @if (isVegan) {
+        <app-inputs
+          label="Quantidade de veganos"
+          id="veganCount"
+          type="number"
+          [control]="getControl('veganCount')"
+        >
+        </app-inputs>
+      }
+    </div>
+
+    <hr class="divider" />
+
+    <div class="columns">
+      <div class="column">
+        <h3>Carnes</h3>
+
+        <div formGroupName="meats">
+          @for (item of carnesOptions; track item.key) {
+            <label class="checkbox-item">
+              <input type="checkbox" [formControlName]="item.key" />
+              {{ item.label }}
+            </label>
+          }
+        </div>
+      </div>
+
+      <div class="column">
+        <h3>Acompanhamentos</h3>
+
+        <div formGroupName="sides">
+          @for (item of acompanhamentosOptions; track item.key) {
+            <label class="checkbox-item">
+              <input type="checkbox" [formControlName]="item.key" />
+              {{ item.label }}
+            </label>
+          }
+        </div>
+      </div>
+
+      <div class="column">
+        <h3>Vegetais</h3>
+
+        <div formGroupName="vegetables">
+          @for (item of vegetaisOptions; track item.key) {
+            <label class="checkbox-item">
+              <input type="checkbox" [formControlName]="item.key" />
+              {{ item.label }}
+            </label>
+          }
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="row">
+      <div class="column">
+        <h3>Bebidas</h3>
+
+        <div formGroupName="drinks">
+          @for (item of bebidasOptions; track item.key) {
+            <label class="checkbox-item">
+              <input type="checkbox" [formControlName]="item.key" />
+              {{ item.label }}
+            </label>
+          }
+        </div>
+      </div>
+
+      <app-inputs
+        label="Quantos bebem álcool"
+        id="alcoholDrinkers"
+        type="number"
+        [control]="getControl('alcoholDrinkers')"
+      >
+      </app-inputs>
+    </div>
+
+    <hr class="divider" />
+
+    <h3>Extras</h3>
+
+    <div formGroupName="extras">
+      @for (item of extrasOptions; track item.key) {
+        <label class="checkbox-item">
+          <input type="checkbox" [formControlName]="item.key" />
+          {{ item.label }}
+        </label>
+      }
+    </div>
+
+    <app-button label="Salvar" variant="primary" (click)="criarChurrasco()"> </app-button>
+  </form>
+</div>

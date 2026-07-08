@@ -8,7 +8,8 @@
     [type]="type"
     [placeholder]="placeholder"
     [ngClass]="styles"
+    [formControl]="control"
   />
 
-  <!-- <small class="error" *ngIf="control.invalid && control.touched"> Campo obrigatório </small> -->
+  <small class="error" *ngIf="showError">{{ errorText }}</small>
 </div>
