@@ -39,27 +39,27 @@ export class LoginComponent {
   }
 
   private salvarDadosUsuario(token: string): void {
-  const payload = JSON.parse(atob(token.split('.')[1]));
+    const payload = JSON.parse(atob(token.split('.')[1]));
 
-  const userId = payload.id ?? payload.sub;
+    const userId = payload.id ?? payload.sub;
 
-  localStorage.setItem('token', token);
-  localStorage.setItem('userId', userId);
-}
+    localStorage.setItem('token', token);
+    localStorage.setItem('userId', userId);
+  }
 
-entrar(): void {
-  this.authService.login(this.form.value).subscribe({
-    next: (response) => {
-      console.log('Login OK:', response);
+  entrar(): void {
+    this.authService.login(this.form.value).subscribe({
+      next: (response) => {
 
-      this.router.navigate(['/listar-churrasco'])
-        .then((sucesso) => {
-          console.log('Navegação:', sucesso);
-        });
-    },
-    error: (erro) => {
-      console.error('Erro ao fazer login', erro);
-    }
-  });
-}
+
+        this.router.navigate(['/listar-churrasco']);
+
+
+
+      },
+      error: (erro) => {
+        console.error('Erro ao fazer login', erro);
+      }
+    });
+  }
 }

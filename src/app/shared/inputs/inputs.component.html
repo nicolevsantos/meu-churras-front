@@ -11,5 +11,5 @@
     [formControl]="control"
   />
 
-  <small class="error" *ngIf="showError">{{ errorText }}</small>
+  <p  [ngClass]="styles" class="error" *ngIf="showError">{{ errorText }}</p>
 </div>

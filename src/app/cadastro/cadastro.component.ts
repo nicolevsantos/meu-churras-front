@@ -90,7 +90,7 @@ export class CadastroComponent {
           localStorage.setItem('token', res.token);
         }
 
-        this.router.navigate(['listar-churrasco']);
+        this.router.navigate(['externo/login'])
       },
       error: (err) => {
         console.error('Registration error:', err);

@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
-  Comprovante,
   CriarGrillPayload,
-  Grill
+  GrillPayload,
+  ComprovantePayload,
 } from '../model/grill.model';
 
 @Injectable({
@@ -12,53 +12,66 @@ import {
 })
 export class GrillService {
 
-  private readonly baseUrl = 'http://192.168.0.20:3000/grill';
+  private readonly baseUrl = 'http://localhost:3000/grill';
 
   constructor(private http: HttpClient) {}
-
 
   /**
    * Cria um churrasco
    * POST /grill
    */
-  criar(payload: CriarGrillPayload): Observable<Comprovante> {
-    return this.http.post<Comprovante>(
+  criar(payload: CriarGrillPayload): Observable<ComprovantePayload> {
+    return this.http.post<ComprovantePayload>(
       this.baseUrl,
       payload,
       {
-        withCredentials: true
+        withCredentials: true,
       }
     );
   }
-
 
   /**
    * Lista todos os churrascos
    * GET /grill
    */
-  listarTodos(): Observable<Grill[]> {
-    return this.http.get<Grill[]>(
+  listarTodos(): Observable<GrillPayload[]> {
+    return this.http.get<GrillPayload[]>(
       this.baseUrl,
       {
-        withCredentials: true
+        withCredentials: true,
       }
     );
   }
-
 
   /**
    * Busca churrasco por uuid
    * GET /grill/{uuid}
    */
-  buscarPorUuid(uuid: string): Observable<Grill> {
-    return this.http.get<Grill>(
+  buscarPorUuid(uuid: string): Observable<GrillPayload> {
+    return this.http.get<GrillPayload>(
       `${this.baseUrl}/${uuid}`,
       {
-        withCredentials: true
+        withCredentials: true,
       }
     );
   }
 
+  /**
+   * Atualiza um churrasco
+   * PUT /grill/{uuid}
+   */
+  editar(
+    uuid: string,
+    payload: CriarGrillPayload
+  ): Observable<ComprovantePayload> {
+    return this.http.put<ComprovantePayload>(
+      `${this.baseUrl}/${uuid}`,
+      payload,
+      {
+        withCredentials: true,
+      }
+    );
+  }
 
   /**
    * Deleta churrasco
@@ -68,7 +81,7 @@ export class GrillService {
     return this.http.delete<void>(
       `${this.baseUrl}/${uuid}`,
       {
-        withCredentials: true
+        withCredentials: true,
       }
     );
   }

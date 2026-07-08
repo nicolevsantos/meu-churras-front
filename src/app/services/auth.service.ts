@@ -30,7 +30,7 @@ export class AuthService {
 
   private readonly http = inject(HttpClient);
 
-  private readonly api = 'http://192.168.0.20:3000/auth';
+  private readonly api = 'http://localhost:3000/auth';
 
 
   login(payload: LoginRequest): Observable<AuthResponse> {
@@ -48,6 +48,25 @@ export class AuthService {
     return this.http.post<AuthResponse>(
       `${this.api}/create`,
       dados,
+      {
+        withCredentials: true
+      }
+    );
+  }
+
+  me(): Observable<boolean> {
+    return this.http.get<any>(
+      `${this.api}/me`,
+      {
+        withCredentials: true
+      }
+    );
+  }
+
+  logout(): Observable<any> {
+    return this.http.post(
+      `${this.api}/logout`,
+      {},
       {
         withCredentials: true
       }

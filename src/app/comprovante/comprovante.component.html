@@ -4,7 +4,7 @@
 >
   Voltar
 </button>
-<div class="h-fit justify-self-center bg-background_one w-fit mb-16">
+<div *ngIf="churrascoDetalhe() as churrasco" class="h-fit justify-self-center bg-background_one w-fit mb-16">
 
   <header class="grid pt-4 pb-1 px-8 w-full">
     <img class="flex justify-self-center" src="../../assets/logo_simples_nota.svg" alt="" />
@@ -12,120 +12,159 @@
   </header>
 
   <section class="grid justify-items-center px-8 pt-0">
+    <span class="uppercase font-semibold text-sm">{{churrasco.nome}}</span>
     <h1 class="uppercase font-semibold text-sm">Seu churrasco está pronto !</h1>
+
     <p>Veja abaixo a lista completa do que você vai precisar</p>
 
     <div class="linha-tracejada my-2"></div>
   </section>
 
-  <div class="px-8">
-    <section class="informacoes grid grid-cols-2 grid-rows-3">
-      <p>
-        PESSOAS: <span>{{ churrascoDetalhe.pessoas }}</span>
-      </p>
-      <p>
-        Duração: <span>{{ churrascoDetalhe.duracao }}</span>
-      </p>
-      <p>
-        Data: <span>{{ churrascoDetalhe.data }}</span>
-      </p>
-      <p>
-        PREVISÃO: <span>{{ churrascoDetalhe.previsaoTempo }}</span>
-      </p>
+ <div class="px-8" *ngIf="churrascoDetalhe() as churrasco">
 
-      <p>
-        TEMPERATURA :<span>{{ churrascoDetalhe.temperatura }}</span>
-      </p>
-    </section>
+  <section class="informacoes grid grid-cols-2 grid-rows-3">
+    <p>
+      PESSOAS: <span>{{ churrasco.pessoas }}</span>
+    </p>
+
+    <p>
+      HORÁRIO: <span>{{ churrasco.duracao }}</span>
+    </p>
+
+    <p>
+      DATA: <span>{{ churrasco.data }}</span>
+    </p>
+
+    <p>
+      PREVISÃO: <span>{{ churrasco.previsaoTempo }}</span>
+    </p>
+
+    <p>
+      TEMPERATURA: <span>{{ churrasco.temperatura }}</span>
+    </p>
+  </section>
+
+  <div class="linha-tracejada my-2"></div>
+
+  <section>
+    <h2 class="font-bold">Dicas</h2>
+
+    <ul *ngIf="churrasco.dicas.length > 0; else semDicas">
+      <li *ngFor="let dica of churrasco.dicas">
+        • {{ dica }}
+      </li>
+    </ul>
+
+    <ng-template #semDicas>
+      <p>Nenhuma dica para este churrasco.</p>
+    </ng-template>
 
     <div class="linha-tracejada my-2"></div>
+  </section>
 
-    <!-- dicas  -->
-    <section class=" ">
-      <h2 class="font-bold">Dicas</h2>
-      <ul>
-        <li *ngFor="let dica of churrascoDetalhe.dicas">• {{ dica }}</li>
-      </ul>
-      <div class="linha-tracejada my-2"></div>
-    </section>
+  <section class="w-full">
 
-    <!-- itens -->
-    <!-- itens -->
-    <section class="w-full">
-      <!-- cabeçalho -->
-      <div class="flex justify-between text-xs font-semibold text-brown_two uppercase mb-2">
-        <span>Item</span>
-        <span>Qtd</span>
+    <div class="flex justify-between text-xs font-semibold text-brown_two uppercase mb-2">
+      <span>Item</span>
+      <span>Qtd</span>
+    </div>
+
+    <!-- Carnes -->
+    <div class="mb-4" *ngIf="churrasco.itens.carnes.length">
+      <h3 class="font-semibold uppercase mb-2">Carnes</h3>
+
+      <div
+        class="flex items-baseline gap-1"
+        *ngFor="let item of churrasco.itens.carnes"
+      >
+        <span>{{ item.nome }}</span>
+        <span class="flex-1 border-b border-dotted border-gray-400"></span>
+        <span>{{ item.quantidade }} {{ item.unidade }}</span>
       </div>
+    </div>
 
-      <!-- carnes -->
-      <div class="mb-4">
-        <h3 class="font-semibold uppercase flex items-center gap-1 mb-2">Carnes</h3>
-        <div class="flex items-baseline gap-1" *ngFor="let item of churrascoDetalhe.itens.carnes">
-          <span>{{ item.nome }}</span>
-          <span class="flex-1 border-b border-dotted border-gray-400 mx-1"></span>
-          <span class="whitespace-nowrap">{{ item.quantidade }} {{ item.unidade }}</span>
-        </div>
+    <div class="linha-tracejada my-3"></div>
+
+    <!-- Acompanhamentos -->
+    <div class="mb-4" *ngIf="churrasco.itens.acompanhamentos.length">
+      <h3 class="font-semibold uppercase mb-2">
+        Acompanhamentos
+      </h3>
+
+      <div
+        class="flex items-baseline gap-1"
+        *ngFor="let item of churrasco.itens.acompanhamentos"
+      >
+        <span>{{ item.nome }}</span>
+        <span class="flex-1 border-b border-dotted border-gray-400"></span>
+        <span>{{ item.quantidade }} {{ item.unidade }}</span>
       </div>
+    </div>
 
-      <div class="linha-tracejada my-3"></div>
+    <div class="linha-tracejada my-3"></div>
 
-      <!-- acompanhamentos -->
-      <div class="mb-4">
-        <h3 class="font-semibold uppercase flex items-center gap-1 mb-2">Acompanhamentos</h3>
-        <div
-          class="flex items-baseline gap-1"
-          *ngFor="let item of churrascoDetalhe.itens.acompanhamentos"
-        >
-          <span>{{ item.nome }}</span>
-          <span class="flex-1 border-b border-dotted border-gray-400 mx-1"></span>
-          <span class="whitespace-nowrap">{{ item.quantidade }} {{ item.unidade }}</span>
-        </div>
+    <!-- Bebidas -->
+    <div class="mb-4" *ngIf="churrasco.itens.bebidas.length">
+      <h3 class="font-semibold uppercase mb-2">
+        Bebidas
+      </h3>
+
+      <div
+        class="flex items-baseline gap-1"
+        *ngFor="let item of churrasco.itens.bebidas"
+      >
+        <span>{{ item.nome }}</span>
+        <span class="flex-1 border-b border-dotted border-gray-400"></span>
+        <span>{{ item.quantidade }} {{ item.unidade }}</span>
       </div>
+    </div>
 
-      <div class="linha-tracejada my-3"></div>
+    <div class="linha-tracejada my-3"></div>
 
-      <!-- bebidas -->
-      <div class="mb-4">
-        <h3 class="font-semibold uppercase flex items-center gap-1 mb-2">Bebidas</h3>
-        <div class="flex items-baseline gap-1" *ngFor="let item of churrascoDetalhe.itens.bebidas">
-          <span>{{ item.nome }}</span>
-          <span class="flex-1 border-b border-dotted border-gray-400 mx-1"></span>
-          <span class="whitespace-nowrap">{{ item.quantidade }} {{ item.unidade }}</span>
-        </div>
+    <!-- Extras -->
+    <div class="mb-4" *ngIf="churrasco.itens.extras.length">
+      <h3 class="font-semibold uppercase mb-2">
+        Extras
+      </h3>
+
+      <div
+        class="flex items-baseline gap-1"
+        *ngFor="let item of churrasco.itens.extras"
+      >
+        <span>{{ item.nome }}</span>
+        <span class="flex-1 border-b border-dotted border-gray-400"></span>
+        <span>{{ item.quantidade }} {{ item.unidade }}</span>
       </div>
+    </div>
 
-      <div class="linha-tracejada my-3"></div>
+  </section>
 
-      <!-- extras -->
-      <div>
-        <h3 class="font-semibold uppercase flex items-center gap-1 mb-2">Extras</h3>
-        <div class="flex items-baseline gap-1" *ngFor="let item of churrascoDetalhe.itens.extras">
-          <span>{{ item.nome }}</span>
-          <span class="flex-1 border-b border-dotted border-gray-400 mx-1"></span>
-          <span class="whitespace-nowrap">{{ item.quantidade }} {{ item.unidade }}</span>
-        </div>
-      </div>
-    </section>
+  <section class="resumo mt-4">
 
-    <section class="resumo mb-4 mt-4">
-      <div class="linha-tracejada mb-3"></div>
+    <div class="linha-tracejada mb-3"></div>
 
-      <p class="text-center font-semibold text-sm mb-2">* * * RESUMO * * *</p>
+    <p class="text-center font-semibold">
+      RESUMO
+    </p>
 
-      <div class="text-xs">
-        <p>
-          TOTAL DE BEBIDAS: <span>{{ totalBebidas }} litros </span>
-        </p>
-        <p>
-          ACOMPANHAMENTOS: <span> {{ totalAcompanhamentos }} itens</span>
-        </p>
-        <p>
-          TOTAL DE CARNE: <span> {{ totalCarne }} kg</span>
-        </p>
-      </div>
-    </section>
-  </div>
+    <p>
+      Total de carne:
+      <strong>{{ resumo().totalCarneKg }} kg</strong>
+    </p>
+
+    <p>
+      Total de bebidas:
+      <strong>{{ resumo().totalBebidaLitros }} L</strong>
+    </p>
+
+    <p>
+      Acompanhamentos:
+      <strong>{{ resumo().totalAcompanhamentos }}</strong>
+    </p>
+
+  </section>
+
+</div>
 
   <footer class="relative translate-y-3 mt-5">
     <div class="text-center mb-3 px-8">

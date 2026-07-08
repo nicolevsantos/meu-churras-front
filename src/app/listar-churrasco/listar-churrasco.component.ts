@@ -1,49 +1,99 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { GrillService } from './../services/grill.service';
+import { CommonModule, DatePipe } from '@angular/common';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ButtonComponent } from '../shared/button/button.component';
 import { Router } from '@angular/router'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listar-churrasco',
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, ButtonComponent, DatePipe],
   standalone: true,
   templateUrl: './listar-churrasco.component.html',
   styleUrl: './listar-churrasco.component.scss',
 })
 export class ListarChurrascoComponent {
   private router = inject(Router)
+  grillService = inject(GrillService);
 
+  idChurrasco: any
   nomeUsuario = 'Nicole';
   listaChurrascos: any[] = [];
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
+
     this.carregarChurrascos();
   }
 
   carregarChurrascos() {
-    this.listaChurrascos = [
-      { nome: 'Churrasco do João', data: '2024/07/15', qtd_pessoas: 5, id: 1 },
-      { nome: 'Churrasco da Maria', data: '2024/08/20', qtd_pessoas: 10, id: 2 },
-      { nome: 'Churrasco do Pedro', data: '2024/09/10', qtd_pessoas: 8, id: 3 }
-
-    ]
-
+    this.grillService.listarTodos().subscribe((churrascos) => {
+      this.listaChurrascos = [...churrascos];
+      this.cdr.detectChanges();
+    });
   }
 
-  removerChurrasco(id: number) {
-    this.listaChurrascos = this.listaChurrascos.filter(churrasco => churrasco.id !== id);
+removerChurrasco(uuid: string): void {
+  Swal.fire({
+    title: 'Excluir churrasco?',
+    text: 'Esta ação não poderá ser desfeita.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Excluir',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#9b1c0c',
+  }).then((result) => {
+    if (!result.isConfirmed) return;
+
+    this.grillService.deletar(uuid).subscribe({
+      next: () => {
+        this.listaChurrascos = this.listaChurrascos.filter(
+          churrasco => churrasco.uuid !== uuid
+        );
+
+        Swal.fire({
+          title: 'Excluído!',
+          text: 'O churrasco foi removido com sucesso.',
+          icon: 'success',
+          confirmButtonColor: '#9b1c0c',
+        });
+      },
+      error: (err) => {
+        console.error(err);
+
+        Swal.fire({
+          title: 'Erro!',
+          text: 'Não foi possível excluir o churrasco.',
+          icon: 'error',
+        });
+      }
+    });
+  });
+}
+
+  verComprovante(uuid: string) {
+    this.router.navigate(['/comprovante', uuid]);
   }
 
-  verComprovante(id: number) {
-    this.router.navigate(['/comprovante', id]);
+  editarChurrasco(uuid: string) {
+    this.router.navigate(['/churrasco', uuid]);
   }
 
-   editarChurrasco(id: number) {
-    this.router.navigate(['/churrasco', id]);
-  }
-
-  criarChurrasco(){
+  criarChurrasco() {
     this.router.navigate(['/churrasco']);
 
+  }
+
+  formatarDataIgnorandoFuso(dataIso: string | undefined): string {
+    if (!dataIso) return '';
+
+
+    const apenasData = dataIso.split('T')[0];
+
+
+    const [ano, mes, dia] = apenasData.split('-');
+
+
+    return `${dia}/${mes}/${ano}`;
   }
 }

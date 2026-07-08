@@ -5,61 +5,78 @@
   Voltar
 </button>
 
-<div class="grid justify-items-center justify-center px-5">
-  <form class="churrasco-form" [formGroup]="form" (ngSubmit)="criarChurrasco()">
-    <h2 class="section-title">Informações Básicas</h2>
+<div class="grid justify-items-center justify-center w-full">
+  <div class="text-brown_two grid justify-self-start w-full mb-4">
+    <h1 class="text-2xl">
+      {{ modoEdicao ? 'Editar churrasco' : 'Novo churrasco' }}
+    </h1>
+    <p class="text-xl">Preencha as informações abaixo para calcular seu churrasco</p>
+    <div class="h-2 border-b-2 border-brown_one/30"></div>
+  </div>
 
-    <app-inputs
-      id="name"
-      type="text"
-      placeholder="Nome do churrasco"
-      [control]="getControl('name')"
-      [required]="true"
-    >
-    </app-inputs>
+  <form class="w-[100vh] gap-4 grid" [formGroup]="form" (ngSubmit)="criarOuEditarChurrasco()">
+    <div class="grid gap-2">
+      <h2 >Informações Básicas</h2>
 
-    <div class="row">
-      <app-inputs label="Data" id="date" type="date" [control]="getControl('date')"> </app-inputs>
-
-      <app-inputs label="Horário" id="time" type="time" [control]="getControl('time')">
-      </app-inputs>
-    </div>
-
-    <app-inputs label="Cidade" id="city" placeholder="Cidade" [control]="getControl('city')">
-    </app-inputs>
-
-    <div class="row">
-      <app-inputs label="Adultos" id="adults" type="number" [control]="getControl('adults')">
-      </app-inputs>
-
-      <app-inputs label="Crianças" id="kids" type="number" [control]="getControl('kids')">
-      </app-inputs>
-    </div>
-
-    <div class="row">
-      <label class="checkbox-item">
-        <input type="checkbox" formControlName="isVegan" />
-        Terá veganos
-      </label>
-
-      @if (isVegan) {
+      <div class="flex items-center gap-3">
         <app-inputs
-          label="Quantidade de veganos"
-          id="veganCount"
-          type="number"
-          [control]="getControl('veganCount')"
+          id="name"
+          label="Nome"
+          type="text"
+          class="w-[60%]"
+          placeholder="Nome do churrasco"
+          [control]="getControl('name')"
+          [required]="true"
         >
         </app-inputs>
-      }
+
+        <app-inputs
+          class="w-[20%]"
+          label="Data"
+          id="date"
+          type="date"
+          [control]="getControl('date')"
+        >
+        </app-inputs>
+        <app-inputs
+          class="w-[20%]"
+          label="Horário"
+          id="time"
+          type="time"
+          [control]="getControl('time')"
+        >
+        </app-inputs>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="w-[58%] flex gap-3">
+          <app-inputs class="w-full" label="Adultos" id="adults" type="number" [control]="getControl('adults')">
+          </app-inputs>
+
+          <app-inputs class="w-full" label="Crianças" id="kids" type="number" [control]="getControl('kids')">
+          </app-inputs>
+        </div>
+
+        <div class="w-[40%] flex items-center gap-4">
+          <app-inputs label="Cidade" id="city" placeholder="Cidade" [control]="getControl('city')">
+          </app-inputs>
+          <div class="row">
+            <label class="checkbox-item">
+              <input type="checkbox" formControlName="isVegan" />
+              Terá veganos
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="h-2 border-b-2 border-brown_one/30"></div>
     </div>
 
-    <hr class="divider" />
-
-    <div class="columns">
-      <div class="column">
+    <div class="grid grid-cols-3 ">
+      <div class=" grid gap-2">
         <h3>Carnes</h3>
 
-        <div formGroupName="meats">
+        <div class="grid" formGroupName="meats">
           @for (item of carnesOptions; track item.key) {
             <label class="checkbox-item">
               <input type="checkbox" [formControlName]="item.key" />
@@ -69,10 +86,10 @@
         </div>
       </div>
 
-      <div class="column">
+      <div class=" grid gap-2">
         <h3>Acompanhamentos</h3>
 
-        <div formGroupName="sides">
+        <div class="grid" formGroupName="sides">
           @for (item of acompanhamentosOptions; track item.key) {
             <label class="checkbox-item">
               <input type="checkbox" [formControlName]="item.key" />
@@ -82,10 +99,10 @@
         </div>
       </div>
 
-      <div class="column">
+      <div class=" grid gap-2">
         <h3>Vegetais</h3>
 
-        <div formGroupName="vegetables">
+        <div class="grid" formGroupName="vegetables">
           @for (item of vegetaisOptions; track item.key) {
             <label class="checkbox-item">
               <input type="checkbox" [formControlName]="item.key" />
@@ -95,14 +112,13 @@
         </div>
       </div>
     </div>
+    <div class="h-2 border-b-2 border-brown_one/30"></div>
 
-    <hr class="divider" />
-
-    <div class="row">
-      <div class="column">
+    <div class="">
+      <div  class="grid gap-2">
         <h3>Bebidas</h3>
 
-        <div formGroupName="drinks">
+        <div  class="grid"  formGroupName="drinks">
           @for (item of bebidasOptions; track item.key) {
             <label class="checkbox-item">
               <input type="checkbox" [formControlName]="item.key" />
@@ -111,21 +127,13 @@
           }
         </div>
       </div>
-
-      <app-inputs
-        label="Quantos bebem álcool"
-        id="alcoholDrinkers"
-        type="number"
-        [control]="getControl('alcoholDrinkers')"
-      >
-      </app-inputs>
     </div>
 
-    <hr class="divider" />
+    <div class="h-2 border-b-2 border-brown_one/30"></div>
 
     <h3>Extras</h3>
 
-    <div formGroupName="extras">
+    <div class="flex gap-5" formGroupName="extras">
       @for (item of extrasOptions; track item.key) {
         <label class="checkbox-item">
           <input type="checkbox" [formControlName]="item.key" />
@@ -134,6 +142,6 @@
       }
     </div>
 
-    <app-button label="Salvar" variant="primary" (click)="criarChurrasco()"> </app-button>
+    <app-button class="w-[50%] flex justify-self-center my-2" label="Salvar" variant="primary" (click)="criarOuEditarChurrasco()"> </app-button>
   </form>
 </div>

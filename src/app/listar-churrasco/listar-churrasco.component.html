@@ -1,4 +1,4 @@
-<div class="w-[50%] justify-self-center flex flex-col h-screen overflow-hidden  ">
+<div class="w-[50%] justify-self-center flex flex-col h-screen overflow-hidden">
   <header>
     <h1 class="font-medium text-3xl">Olá, {{ nomeUsuario }}</h1>
     <span class="text-xl">Seus churrascos</span>
@@ -9,12 +9,14 @@
     class="border-t-2 border-b-2 border-bege_one w-full h-[65%] grid gap-7 py-7 overflow-auto"
   >
     <div
-
       *ngFor="let churrasco of listaChurrascos"
-      class="cardChurrasco grid grid-cols-3 hover:bg-background_one border-red_one border-[3px] rounded-xl "
+      class="cardChurrasco grid grid-cols-3 hover:bg-background_one border-red_one border-[3px] rounded-xl"
     >
       <!-- imagem card  -->
-      <div    (click)="verComprovante(churrasco.id)" class="cursor-pointer col-span-1 flex justify-center p-5 relative">
+      <div
+        (click)="verComprovante(churrasco.comprovante)"
+        class="cursor-pointer col-span-1 flex justify-center p-5 relative"
+      >
         <img class="h-32" src="./assets/churrasqueira-acesa.svg" alt="Churrasqueia Acesa" />
         <div class="h-[150px] absolute right-0 top-5 bottom-3 w-[3px] bg-[#c0392b]"></div>
       </div>
@@ -22,9 +24,9 @@
       <!-- informações card  -->
       <div class="col-span-2 grid px-5">
         <div class="flex justify-between justify-items-center items-center">
-          <h2 class="text-xl text-red_one font-semibold tracking-[4px]">{{ churrasco?.nome }}</h2>
+          <h2 class="text-xl text-red_one font-semibold tracking-[4px]">{{ churrasco?.name }}</h2>
           <button
-            (click)="removerChurrasco(churrasco.id)"
+            (click)="removerChurrasco(churrasco.uuid)"
             class="text-xl text-red_two font-semibold"
           >
             X
@@ -32,12 +34,13 @@
         </div>
 
         <ul class="list-disc text-xl text-brown_two pl-5 mt-2">
-          <li>{{ churrasco?.qtd_pessoas }} pessoas</li>
-          <li>{{ churrasco?.data }}</li>
+          <li>{{ churrasco?.pessoas }} pessoas</li>
+          <li>{{ formatarDataIgnorandoFuso(churrasco?.date) }}</li>
+          <li>{{ churrasco?.time }}</li>
         </ul>
 
         <button
-        (click)="editarChurrasco(churrasco.id)"
+          (click)="editarChurrasco(churrasco.uuid)"
           class="underline text-red_two cursor-pointer font-semibold text-lg justify-self-end"
         >
           Editar
@@ -46,7 +49,7 @@
     </div>
   </section>
 
-  <section
+  <!-- <section
     *ngIf="listaChurrascos.length === 0"
     class="border-t-2 border-b-2 border-bege_one w-full h-full grid gap-7 py-7 overflow-auto justify-center justify-items-center"
   >
@@ -56,6 +59,11 @@
     <span class="text-brown_two font-medium text-2xl"
       >Planeje e descubra a quantidade ideal de cada item !</span
     >
-  </section>
-  <app-button class="mt-6" label="+ NOVO CHURRASCO" variant="primary" (click)="criarChurrasco()"></app-button>
+  </section> -->
+  <app-button
+    class="mt-6"
+    label="+ NOVO CHURRASCO"
+    variant="primary"
+    (click)="criarChurrasco()"
+  ></app-button>
 </div>

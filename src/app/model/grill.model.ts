@@ -10,8 +10,6 @@ export interface CriarGrillPayload {
   isVegan: boolean;
   veganCount: number;
 
-  alcoholDrinkers: number;
-
   meats: string[];
   sides: string[];
   vegetables: string[];
@@ -19,8 +17,19 @@ export interface CriarGrillPayload {
   extras: string[];
 }
 
+export interface GrillItemPayload {
+  uuid: string;
+  meat: string | null;
+  side: string | null;
+  vegetable: string | null;
+  drink: string | null;
+  extra: string | null;
+  quantity: number | null;
+  weight: number | null;
+  grillUuid: string;
+}
 
-export interface Grill {
+export interface GrillPayload {
   uuid: string;
 
   name: string;
@@ -34,24 +43,36 @@ export interface Grill {
   isVegan: boolean;
   veganCount: number;
 
-  alcoholDrinkers: number;
+  userUuid: string;
 
-  meats: string[];
-  sideDishes: string[];
-  vegetables: string[];
-  drinks: string[];
-  extras: string[];
-
-  createdAt?: string;
+  items: GrillItemPayload[];
 }
 
-
-/**
- * Retorno do POST /grill
- * O backend gera o comprovante automaticamente.
- */
-export interface Comprovante {
+export interface ClimatePayload {
   uuid: string;
-  grill: Grill;
+  climate: string;
+  temperature: number;
+  city: string;
+}
+
+export interface ResumoPayload {
+  totalCarneKg: number;
+  totalBebidaLitros: number;
+  totalAcompanhamentos: number;
+}
+
+export interface ComprovantePayload {
+  uuid: string;
+  grillUuid: string;
+  climateUuid: string;
   createdAt: string;
+  comprovante: {
+    uuid: string;
+  };
+
+  grill: GrillPayload;
+  climate: ClimatePayload;
+
+  dicas: string[];
+  resumo: ResumoPayload;
 }
