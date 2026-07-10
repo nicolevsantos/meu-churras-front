@@ -35,7 +35,7 @@ O projeto foi desenvolvido utilizando **Angular** no frontend e **NestJS** no ba
 
 ### Login
 
-![Login](docs/login.png.png)
+![Login](docs/login.png)
 
 ### Lista de churrascos
 
