@@ -1,59 +1,80 @@
-# MeuChurras
+# 🔥 Meu Churras
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.1.
+<p align="center">
+  <b>Organize seus churrascos de forma simples e prática.</b>
+</p>
 
-## Development server
+---
 
-To start a local development server, run:
+## 📖 Sobre o projeto
 
-```bash
-ng serve
-```
+O **Meu Churras** é uma aplicação web desenvolvida para facilitar a organização de churrascos.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+A plataforma permite que usuários criem uma conta, realizem login de forma segura e gerenciem seus eventos, cadastrando churrascos, editando informações, removendo eventos e acompanhando todos os churrascos cadastrados em um único lugar.
 
-## Code scaffolding
+O projeto foi desenvolvido utilizando **Angular** no frontend e **NestJS** no backend, com autenticação utilizando **JWT** e persistência de dados através do **Prisma ORM** e **PostgreSQL**.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## ✨ Funcionalidades
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- ✅ Cadastro de usuários
+- ✅ Login com autenticação JWT
+- ✅ Logout
+- ✅ Cadastro de churrascos
+- ✅ Listagem de churrascos
+- ✅ Edição de churrascos
+- ✅ Exclusão de churrascos
+- ✅ Visualização de comprovantes
+- ✅ Interface responsiva
+- ✅ Alertas utilizando SweetAlert2
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## 📷 Demonstração
 
-To build the project run:
+### Login
 
-```bash
-ng build
-```
+![Login](docs/login.png.png)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Lista de churrascos
 
-## Running unit tests
+![Lista](docs/lista-churrascos.png)
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+## 🛠 Tecnologias utilizadas
 
-## Running end-to-end tests
+### Frontend
 
-For end-to-end (e2e) testing, run:
+- Angular
+- TypeScript
+- SCSS
+- RxJS
+- SweetAlert2
 
-```bash
-ng e2e
-```
+### Backend
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- NestJS
+- Prisma ORM
+- PostgreSQL
+- JWT
+- bcrypt
+- Swagger
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🚀 Próximas melhorias
+
+- Cadastro de participantes
+- Convites para eventos
+- Controle de despesas
+- Dashboard com estatísticas
+- Recuperação de senha
+- Perfil do usuário
+
+---
+
+## 👩‍💻 Desenvolvido por
+
+**Nicole**

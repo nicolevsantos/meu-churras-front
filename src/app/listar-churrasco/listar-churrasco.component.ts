@@ -4,6 +4,7 @@ import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ButtonComponent } from '../shared/button/button.component';
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-listar-churrasco',
@@ -15,14 +16,23 @@ import Swal from 'sweetalert2';
 export class ListarChurrascoComponent {
   private router = inject(Router)
   grillService = inject(GrillService);
+  authService = inject(AuthService);
 
   idChurrasco: any
-  nomeUsuario = 'Nicole';
+  nomeUsuario: any
   listaChurrascos: any[] = [];
   private cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
 
+    this.authService.getUser().subscribe({
+      next: (user) => {
+        this.nomeUsuario = user.name;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
     this.carregarChurrascos();
   }
 
@@ -33,43 +43,45 @@ export class ListarChurrascoComponent {
     });
   }
 
-removerChurrasco(uuid: string): void {
-  Swal.fire({
-    title: 'Excluir churrasco?',
-    text: 'Esta ação não poderá ser desfeita.',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Excluir',
-    cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#9b1c0c',
-  }).then((result) => {
-    if (!result.isConfirmed) return;
+  removerChurrasco(uuid: string): void {
+    Swal.fire({
+      title: 'Excluir churrasco?',
+      text: 'Esta ação não poderá ser desfeita.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Excluir',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#9b1c0c',
+    }).then((result) => {
+      if (!result.isConfirmed) return;
 
-    this.grillService.deletar(uuid).subscribe({
-      next: () => {
-        this.listaChurrascos = this.listaChurrascos.filter(
-          churrasco => churrasco.uuid !== uuid
-        );
+      this.grillService.deletar(uuid).subscribe({
+        next: () => {
+          this.listaChurrascos = this.listaChurrascos.filter(
+            churrasco => churrasco.uuid !== uuid
+          );
 
-        Swal.fire({
-          title: 'Excluído!',
-          text: 'O churrasco foi removido com sucesso.',
-          icon: 'success',
-          confirmButtonColor: '#9b1c0c',
-        });
-      },
-      error: (err) => {
-        console.error(err);
+          Swal.fire({
+            title: 'Excluído!',
+            text: 'O churrasco foi removido com sucesso.',
+            icon: 'success',
+            confirmButtonColor: '#9b1c0c',
+          }).then(() => {
+            window.location.reload();
+          });
+        },
+        error: (err) => {
+          console.error(err);
 
-        Swal.fire({
-          title: 'Erro!',
-          text: 'Não foi possível excluir o churrasco.',
-          icon: 'error',
-        });
-      }
+          Swal.fire({
+            title: 'Erro!',
+            text: 'Não foi possível excluir o churrasco.',
+            icon: 'error',
+          });
+        }
+      });
     });
-  });
-}
+  }
 
   verComprovante(uuid: string) {
     this.router.navigate(['/comprovante', uuid]);

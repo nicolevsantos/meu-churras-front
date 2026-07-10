@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { ButtonComponent } from '../shared/button/button.component';
 import { InputsComponent } from '../shared/inputs/inputs.component';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 function passwordsMatchValidator(
   passwordControlName: string,
@@ -73,6 +74,14 @@ export class CadastroComponent {
   cadastrar(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos inválidos',
+        text: 'Preencha todos os campos corretamente.',
+        confirmButtonColor: '#9b1c0c',
+      });
+
       return;
     }
 
@@ -90,10 +99,24 @@ export class CadastroComponent {
           localStorage.setItem('token', res.token);
         }
 
-        this.router.navigate(['externo/login'])
+        Swal.fire({
+          icon: 'success',
+          title: 'Cadastro realizado!',
+          text: 'Sua conta foi criada com sucesso.',
+          confirmButtonColor: '#9b1c0c',
+        }).then(() => {
+          this.router.navigate(['externo/login']);
+        });
       },
       error: (err) => {
         console.error('Registration error:', err);
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro ao cadastrar',
+          text: 'Não foi possível criar a conta. Verifique os dados e tente novamente.',
+          confirmButtonColor: '#9b1c0c',
+        });
       },
     });
   }

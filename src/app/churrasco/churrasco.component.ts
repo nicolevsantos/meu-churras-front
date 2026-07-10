@@ -247,7 +247,7 @@ export class ChurrascoComponent implements OnInit, OnDestroy {
             confirmButtonText: 'Ver comprovante',
             confirmButtonColor: '#9b1c0c',
           }).then(() => {
-            this.router.navigate(['/comprovante', resposta.uuid]);
+            this.router.navigate(['/comprovante', resposta.comprovante.uuid]);
           });
         },
         error: (err) => {

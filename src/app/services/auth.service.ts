@@ -43,6 +43,14 @@ export class AuthService {
     );
   }
 
+  getUser(): Observable<{ name: string }> {
+  return this.http.get<{ name: string }>(
+    `${this.api}`,
+    {
+      withCredentials: true,
+    }
+  );
+}
 
   cadastrar(dados: RegisterRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(
@@ -54,7 +62,7 @@ export class AuthService {
     );
   }
 
-  me(): Observable<boolean> {
+  me(): Observable<any> {
     return this.http.get<any>(
       `${this.api}/me`,
       {

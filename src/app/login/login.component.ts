@@ -10,6 +10,7 @@ import { InputsComponent } from '../shared/inputs/inputs.component';
 import { ButtonComponent } from '../shared/button/button.component';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -49,16 +50,25 @@ export class LoginComponent {
 
   entrar(): void {
     this.authService.login(this.form.value).subscribe({
-      next: (response) => {
-
-
-        this.router.navigate(['/listar-churrasco']);
-
-
-
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Login realizado!',
+          text: 'Bem-vindo(a)!',
+          confirmButtonColor: '#9b1c0c',
+        }).then(() => {
+          this.router.navigate(['/listar-churrasco']);
+        });
       },
       error: (erro) => {
         console.error('Erro ao fazer login', erro);
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro ao entrar',
+          text: 'E-mail ou senha inválidos.',
+          confirmButtonColor: '#9b1c0c',
+        });
       }
     });
   }

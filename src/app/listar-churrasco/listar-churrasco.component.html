@@ -1,6 +1,6 @@
 <div class="w-[50%] justify-self-center flex flex-col h-screen overflow-hidden">
   <header>
-    <h1 class="font-medium text-3xl">Olá, {{ nomeUsuario }}</h1>
+    <h1 class="font-medium text-3xl capitalize">Olá, {{ nomeUsuario }}</h1>
     <span class="text-xl">Seus churrascos</span>
   </header>
 
@@ -10,7 +10,7 @@
   >
     <div
       *ngFor="let churrasco of listaChurrascos"
-      class="cardChurrasco grid grid-cols-3 hover:bg-background_one border-red_one border-[3px] rounded-xl"
+      class="cardChurrasco grid grid-cols-3 hover:bg-background_one border-red_one border-[3px] rounded-xl max-h-[190px]"
     >
       <!-- imagem card  -->
       <div
